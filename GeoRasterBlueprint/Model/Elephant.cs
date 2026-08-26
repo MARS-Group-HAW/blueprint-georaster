@@ -106,9 +106,6 @@ public class Elephant : IAgent<LandscapeLayer>, IPositionable
     {
         Energy -= 1;
 
-        // Create target position with current bearing and distance
-        Target = Position.CalculateRelativePosition(_bearing, Distance);
-
         if (Energy < 40)
         {
             // Energy is low, so look for water
@@ -118,13 +115,13 @@ public class Elephant : IAgent<LandscapeLayer>, IPositionable
                 // Get coordinates of the nearest water source...
                 var nearestWaterSource = waterSources.First();
                 var waterSourceLocation = (Point)nearestWaterSource.VectorStructured.Geometry;
-                Target = new Position(waterSourceLocation.X, waterSourceLocation.Y);
+                var waterPosition = new Position(waterSourceLocation.X, waterSourceLocation.Y);
 
                 // ... and change the agent's bearing such that it looks in the direction of the water source
-                _bearing = Position.GetBearing(Target);
+                _bearing = Position.GetBearing(waterPosition);
 
-                // If the agent in close the the water source, increase its energy and change bearing
-                if (Target.DistanceInMTo(Position) < 20)
+                // If the agent is close to the water source, increase its energy and change bearing
+                if (waterPosition.DistanceInMTo(Position) < 20)
                 {
                     Energy += 5000;
                     _bearing = (_bearing + 45) % 360;
@@ -143,6 +140,11 @@ public class Elephant : IAgent<LandscapeLayer>, IPositionable
                 _bearing = _random.Next(0, 360);
             }
         }
+
+        // Create target position with the (possibly just updated) bearing and distance. This is the
+        // point the agent will actually move to this tick, so it's what the perimeter check below
+        // must validate against.
+        Target = Position.CalculateRelativePosition(_bearing, Distance);
 
         // Make sure the calculated target is still inside our perimeter
         if (Perimeter.IsPointInside(Target))
