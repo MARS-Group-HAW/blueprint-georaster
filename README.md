@@ -27,7 +27,7 @@ The model can be configured via the `config.json` file in the root folder of the
 
 ## Visualizing the model output
 
-The vector data and the movement of the `Elephant` agents is stored in a file named `Elephant_trips.geojson`, which is stored in GeoRasterBlueprint/bin/Debug/net6.0. The movement trajectories can be visualized in [kepler.gl](https://kepler.gl). Below is a screenshot of the visualization output.
+The vector data and the movement of the `Elephant` agents is stored in a file named `Elephant_trips.geojson`, which is stored in GeoRasterBlueprint/bin/Debug/net10.0. The movement trajectories can be visualized in [kepler.gl](https://kepler.gl). Below is a screenshot of the visualization output.
 
 <p align="center">
   <img src="img/elephants-on-raster.png" alt="Elephant agents in Addo Elephant National Park"/>
