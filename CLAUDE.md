@@ -21,7 +21,7 @@ dotnet run -sm config.json   # -sm = start model with the given simulation confi
 ./run.sh
 ```
 
-Simulation output (a `Elephant_trips.geojson` file with agent trajectories) is written to `GeoRasterBlueprint/bin/Debug/net10.0/`. It can be visualized by loading it into [kepler.gl](https://kepler.gl).
+Simulation output (an `Elephant_trips.geojson` file with agent trajectories) is written to the working directory the run command was invoked from — i.e. `GeoRasterBlueprint/Elephant_trips.geojson` when run as above, since `config.json`'s relative paths and file output both resolve against the working directory, not the build output folder. It can be visualized by loading it into [kepler.gl](https://kepler.gl).
 
 ## Architecture
 
